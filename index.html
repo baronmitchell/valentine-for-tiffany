@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💖</title>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff5f9e, #ff8ccf);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 420px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #ff3f81;
+      margin-top: 15px;
+    }
+    img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .yes {
+      background: #ff3f81;
+      color: white;
+    }
+    .no {
+      background: #ddd;
+    }
+    .response {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ff3f81;
+    }
+    .timestamp {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- CHANGE THE IMAGE FILE NAME HERE -->
+    <img src="photo.jpg" alt="Us 💕">
+
+    <h1>Tiffany 💕</h1>
+    <p>Will you be my Valentine?</p>
+
+    <button class="yes" onclick="yesResponse()">Yes</button>
+    <button class="no" onclick="noResponse()">No</button>
+
+    <div class="response" id="response"></div>
+    <div class="timestamp" id="timestamp"></div>
+
+    <p style="margin-top:20px;font-size:14px;">
+      Please take a screenshot of your response<br>
+      and share it with <strong>Mitchell</strong> 📸
+    </p>
+  </div>
+
+  <script>
+    function getTimestamp() {
+      const now = new Date();
+      return now.toLocaleString();
+    }
+
+    function yesResponse() {
+      document.getElementById("response").innerText =
+        "You selected: YES 💖";
+      document.getElementById("timestamp").innerText =
+        "Timestamp: " + getTimestamp();
+
+      confetti({
+        particleCount: 160,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+
+    function noResponse() {
+      document.getElementById("response").innerText =
+        "You selected: NO 😢";
+      document.getElementById("timestamp").innerText =
+        "Timestamp: " + getTimestamp();
+    }
+  </script>
+</body>
+</html>
