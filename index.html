@@ -2,113 +2,172 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Be My Valentine 💖</title>
+  <title>Be My Valentine</title>
 
   <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <!-- Google Fonts: Serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff5f9e, #ff8ccf);
+      font-family: 'Merriweather', serif;
+      background: #faf5f0;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0;
+      color: #222;
     }
+
     .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
+      background: #ffffff;
+      padding: 45px 35px;
+      border-radius: 22px;
       text-align: center;
-      max-width: 420px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+      position: relative;
     }
-    h1 {
-      color: #ff3f81;
-      margin-top: 15px;
-    }
+
     img {
       width: 100%;
-      max-height: 250px;
+      max-height: 230px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      transition: opacity 0.4s ease;
     }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #d6336c;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .buttons {
+      position: relative;
+      height: 60px;
+    }
+
     button {
-      padding: 12px 24px;
-      margin: 10px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
       border: none;
-      border-radius: 25px;
-      font-size: 16px;
       cursor: pointer;
+      transition: all 0.25s ease;
     }
+
     .yes {
-      background: #ff3f81;
-      color: white;
+      background: #d6336c;
+      color: #fff;
     }
+
+    .yes:hover {
+      background: #c12d60;
+      transform: translateY(-1px);
+    }
+
     .no {
-      background: #ddd;
+      background: transparent;
+      color: #aaa;
+      position: absolute;
+      right: 0;
     }
+
     .response {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #ff3f81;
+      margin-top: 30px;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      color: #d6336c;
     }
+
     .timestamp {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #666;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .note {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="card" id="card">
 
-    <!-- CHANGE THE IMAGE FILE NAME HERE -->
-    <img src="photo.png.jpg" alt="Us 💕">
+    <img id="mainImage" src="photo.jpg" alt="Us">
 
-    <h1>Tiffany 💕</h1>
+    <h1>Tiffany</h1>
     <p>Will you be my Valentine?</p>
 
-    <button class="yes" onclick="yesResponse()">Yes</button>
-    <button class="no" onclick="noResponse()">No</button>
+    <div class="buttons">
+      <button class="yes" onclick="yesResponse()">Yes</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
 
     <div class="response" id="response"></div>
     <div class="timestamp" id="timestamp"></div>
 
-    <p style="margin-top:20px;font-size:14px;">
-      Please take a screenshot of your response<br>
-      and share it with <strong>Mitchell</strong> 📸
-    </p>
+    <div class="note">
+      Screenshot and share with Mitchell
+    </div>
   </div>
 
   <script>
+    const noBtn = document.getElementById("noBtn");
+    const card = document.getElementById("card");
+    const image = document.getElementById("mainImage");
+
     function getTimestamp() {
-      const now = new Date();
-      return now.toLocaleString();
+      return new Date().toLocaleString();
     }
+
+    // Elegant dodge for No button
+    noBtn.addEventListener("mouseenter", () => {
+      const maxX = 180;
+      const randomX = Math.random() * maxX;
+      noBtn.style.right = randomX + "px";
+    });
 
     function yesResponse() {
       document.getElementById("response").innerText =
-        "You selected: YES 💖";
+        "Response recorded ✓";
       document.getElementById("timestamp").innerText =
-        "Timestamp: " + getTimestamp();
+        getTimestamp();
 
+      // Subtle romantic confetti
       confetti({
-        particleCount: 160,
-        spread: 80,
-        origin: { y: 0.6 }
+        particleCount: 100,
+        spread: 60,
+        colors: ['#d6336c', '#f8c8dc', '#fff0f5'],
+        scalar: 0.8,
+        origin: { y: 0.7 }
       });
-    }
 
-    function noResponse() {
-      document.getElementById("response").innerText =
-        "You selected: NO 😢";
-      document.getElementById("timestamp").innerText =
-        "Timestamp: " + getTimestamp();
+      // Smooth image swap
+      image.style.opacity = 0;
+      setTimeout(() => {
+        image.src = "yes-photo.jpg";
+        image.style.opacity = 1;
+      }, 300);
     }
   </script>
 </body>
 </html>
-
